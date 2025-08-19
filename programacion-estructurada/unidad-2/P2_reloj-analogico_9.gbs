@@ -1,0 +1,138 @@
+program {
+    DibujarRelojAnalógicoSimplificado()
+}
+
+procedure DibujarRelojAnalógicoSimplificado() {
+    /*
+        Prop.
+            Dibujar un reloj analógico simplificado 5x5
+        Prec.
+            Que el tablero sea 5x5
+    */
+    IrAlCentroDesdeElInicio()
+    
+    Dibujar12Rojos()
+    Mover2VecesAlSur()
+    
+    Dibujar9Rojos()
+    Mover2VecesAlEste()
+    
+    Dibujar6Rojos()
+    Mover2VecesAlNorte()
+    
+    Dibujar3Rojos()
+    Mover2VecesAlOeste()
+}
+
+procedure IrAlCentroDesdeElInicio() {
+    /*
+        Prop.
+            Ir al centro desde el inicio del tablero
+        Prec.
+            Estar en el inicio del tablero
+    */
+    repeat(2) {
+        Mover(Norte)
+        Mover(Este)
+    }
+}
+
+procedure Dibujar12Rojos() {
+    /*
+        Prop.
+            Dibujar el 12 del RAS
+        Prec.
+            Debe haber 2 lindantes al norte desde el centro
+    */
+    Mover2VecesAlNorte()
+    repeat(12) {
+        Poner(Rojo)
+    }
+}
+
+procedure Dibujar9Rojos() {
+    /*
+        Prop.
+            Dibujar el 9 del RAS
+        Prec.
+            Debe haber 2 lindantes al oeste desde el centro
+    */
+    Mover2VecesAlOeste()
+    repeat(9) {
+        Poner(Rojo)
+    }
+}
+
+procedure Dibujar6Rojos() {
+    /*
+        Prop.
+            Dibujar el 6 del RAS
+        Prec.
+            Debe haber 2 lindantes al sur desde el centro
+    */
+    Mover2VecesAlSur()
+    repeat(6) {
+        Poner(Rojo)
+    }
+}
+
+procedure Dibujar3Rojos() {
+    /*
+        Prop.
+            Dibujar el 3 del RAS
+        Prec.
+            Debe haber 2 lindantes al este desde el centro
+    */
+    Mover2VecesAlEste()
+    repeat(3) {
+        Poner(Rojo)
+    }
+}
+
+procedure Mover2VecesAlNorte() {
+    /*
+        Prop.
+            Mover 2 veces al norte desde el centro
+        Prec.
+            Debe haber 2 lindantes hacia el norte
+    */
+    repeat(2) {
+        Mover(Norte)
+    }
+}
+
+procedure Mover2VecesAlSur() {
+    /*
+        Prop.
+            Mover 2 veces al sur desde el centro
+        Prec.
+            Debe haber 2 lindantes hacia el sur
+    */
+    repeat(2) {
+        Mover(Sur)
+    }
+}
+
+procedure Mover2VecesAlOeste() {
+    /*
+        Prop.
+            Mover 2 veces al oeste desde el centro
+        Prec.
+            Debe haber 2 lindantes hacia el oeste
+    */
+    repeat(2) {
+        Mover(Oeste)
+    }
+}
+
+procedure Mover2VecesAlEste() {
+    /*
+        Prop.
+            Mover 2 veces al este desde el centro
+        Prec.
+            Debe haber 2 lindantes hacia el este
+    */
+    repeat(2) {
+        Mover(Este)
+    }
+}
