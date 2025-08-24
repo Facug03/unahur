@@ -1,0 +1,59 @@
+program {
+    DibujarLaBandaGloriosaDeAncho_(24)
+}
+
+procedure DibujarLaBandaGloriosaDeAncho_(ancho) {
+    /*
+        Prop.
+            Dibujar la BG de *ancho* de ancho
+        Prec.
+            Que el tablero sea de *ancho* ancho y *ancho* + 3
+        Param.
+            *ancho*. Numero. El ancho de la BG
+    */
+    
+    repeat(ancho - 1) {
+        DibujarLineaVerticalDe4()
+        IrAlInicioDeLaSiguienteLineaADibujar()
+    }
+    DibujarLineaVerticalDe4()
+}
+
+procedure IrAlInicioDeLaSiguienteLineaADibujar() {
+    /*
+        Prop.
+            Ir al inicio de la siguiente linea a dibujar de la BG
+        Prec.
+            Tener espacio hacia la derecha de la posicion actual
+    */
+    
+    Mover(Este)
+    Ir2LineasHaciaAbajo()
+}
+
+procedure DibujarLineaVerticalDe4() {
+    /*
+        Prop.
+            Dibujar una linea vertical de 4 hacia el norte
+        Prec.
+            Que haya 4 celdas hacia el norte
+    */
+    
+    repeat(3) {
+        Poner(Rojo)
+        Mover(Norte)
+    }
+    Poner(Rojo)
+}
+
+procedure Ir2LineasHaciaAbajo() {
+    /*
+        Prop.
+            Ir 2 lineas hacia abajo desde la posicion actual
+        Prec.
+            Que hayan 2 lineas hacia abajo
+    */
+    repeat(2) {
+        Mover(Sur)
+    }
+}
