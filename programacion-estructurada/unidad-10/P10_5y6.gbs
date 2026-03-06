@@ -1,0 +1,203 @@
+program {
+    madre := crearPersona("23.123.123", "casa 1234", True)
+    hijo := crearPersona("57.123.144", "casa 1234", False)
+    nuevoHijo := personaNacidaDe_(madre)
+    madreEmpleada := crearEmpleado(madre, Operador, 1200000)
+    
+    return (categoríaDelPuesto_(puesto(madreEmpleada)))
+}
+
+type Persona is record {
+    /*
+        Prop.
+            Modelar una persona con sus datos.
+    */
+    field dni // String
+    field domicilio // String
+    field esDonanteDeOrganos // Boolean
+}
+
+type Empleado is record {
+    /*
+        Prop.
+            Modelar a un empleado con su identidad, puesto y sueldo.
+        Inv. de representacion.
+            El sueldo debe estar representado en pesos sin centavos.
+    */
+    field persona // Persona
+    field puesto // Puesto
+    field sueldo // Numero
+}
+
+type Puesto is variant {
+    /*
+        Prop.
+            Modelar los diferentes puestos que hay dentro de una empresa de software.
+    */
+    case GestorDeProyecto {}
+    case LiderDeProyecto {}
+    case Desarrollador {}
+    case Operador {}
+}
+
+function crearPersona(dni, domicilio, esDonanteDeOrganos) {
+    /*
+        Prop.
+            Declarar una persona con sus datos.
+        Prec.
+            Ninguna.
+        Param.
+            dni. String. Dni de la persona a crear.
+            domicilio. String. Domicilio de la persona a crear.
+            esDonanteDeOrganos. Booleano. Indica si la persona es donante de organos.
+        Tipo.
+            Persona.
+    */
+    return (Persona(dni <- dni, domicilio <- domicilio, esDonanteDeOrganos <- esDonanteDeOrganos))
+}
+
+function crearEmpleado(persona, puesto, sueldo) {
+    /*
+        Prop.
+            Declarar un empleado con sus datos.
+        Prec.
+            Ninguna.
+        Param.
+            persona. Persona. Identidad del empleado.
+            puesto. Puesto. Puesto del empleado.
+            sueldo. Numero. Sueldo del empleado.
+        Tipo.
+            Empleado.
+    */
+    return (Empleado(persona <- persona, puesto <- puesto, sueldo <- sueldo))
+}
+
+function sinAsignar() {
+    return ("SIN ASIGNAR")
+}
+
+function sonConvivientes_Y_(primeraPersona, segundaPersona) {
+     /*
+        Prop.
+            Indica si *primeraPersona* y *segundaPersona* son convivientes.
+        Prec.
+            Ninguna.
+        Param.
+            primeraPersona. Persona. Primera persona a comparar.
+            segundaPersona. Persona. Segunda persona a comparar.
+        Tipo.
+            Booleano.
+    */
+    return (domicilio(primeraPersona) == domicilio(segundaPersona))
+}
+
+function personaNacidaDe_(persona) {
+        /*
+        Prop.
+            Declarar una persona nacida de *persona*.
+        Prec.
+            Ninguna.
+        Param.
+            persona. Persona. Padre o madre de la persona a crear.
+        Tipo.
+            Persona.
+    */
+    
+    return (crearPersona(sinAsignar(), domicilio(persona), False))
+}
+
+function persona_RegistradaCon_(persona, dni) {
+    return (crearPersona(dni, domicilio(persona), esDonanteDeOrganos(persona)))
+}
+
+function persona_ConSituaciónComoDonanteCambiada(persona, nuevaCondicionComoDonante) {
+    return (crearPersona(dni(persona), domicilio(persona), nuevaCondicionComoDonante))
+}
+
+function persona_ConDomicilioNuevoEn_(persona, nuevoDomicilio) {
+    /*
+        Prop.
+            Cambiar el domicilio de una persona.
+        Prec.
+            Ninguna.
+        Param.
+            persona. Persona. Persona a cambiar el domicilio.
+            nuevoDomicilio. String. Nuevo domicilio de la persona.
+        Tipo.
+            Persona.
+    */
+    return (crearPersona(dni(persona), nuevoDomicilio, esDonanteDeOrganos(persona)))
+}
+
+function empleado_ConSueldoActualizadoA_(empleado, nuevoSueldo) {
+    /*
+        Prop.
+            Cambiar el sueldo de un empleado.
+        Prec.
+            Ninguna.
+        Param.
+            empleado. Empleado. Empleado a actualizar el sueldo.
+            nuevoSueldo. Numero. Nuevo sueldo del empleado.
+        Tipo.
+            Empleado.
+    */
+    
+    return (crearEmpleado(persona(empleado), puesto(empleado), nuevoSueldo))
+}
+
+function empleado_ConNuevoPuesto_(empleado, nuevoPuesto) {
+    /*
+        Prop.
+            Cambiar el puesto de un empleado.
+        Prec.
+            Ninguna.
+        Param.
+            empleado. Empleado. Empleado a actualizar el sueldo.
+            nuevoPuesto. Puesto. Nuevo puesto del empleado.
+        Tipo.
+            Empleado.
+    */
+    
+    return (crearEmpleado(persona(empleado), nuevoPuesto, sueldo(empleado)))
+}
+
+function empleado_ConDomicilioActualizadoA_(empleado, nuevoDomicilio) {
+    return (crearEmpleado(Persona(persona(empleado) | domicilio <- nuevoDomicilio), puesto(empleado), sueldo(empleado)))
+}
+
+function categoríaDelPuesto_(puesto) {
+    /*
+        Prop.
+            Describir categoria del *puesto*.
+        Prec.
+            Ninguna.
+        Param.
+            puesto. Puesto. Puesto del empleado.
+        Tipo.
+            Numero.
+    */
+    
+    return (
+        choose 
+        4 when (puesto == GestorDeProyecto)
+        3 when (puesto == LiderDeProyecto)
+        2 when (puesto == Desarrollador)
+        1 otherwise
+    )
+}
+
+function tienenIgualSueldo_Y_(primerEmpleado, segundoEmpleado) {
+    /*
+        Prop.
+            Indica si *primerEmpleado* y *segundoEmpleado* tienen el mismo sueldo.
+        Prec.
+            Ninguna.
+        Param.
+            primerEmpleado. Empleado. Primer empleado a comparar.
+            segundoEmpleado. Empleado. Segundo empleado a comparar.
+        Tipo.
+            Booleano.
+    */
+    
+    return (sueldo(primerEmpleado) == sueldo(segundoEmpleado))
+}
